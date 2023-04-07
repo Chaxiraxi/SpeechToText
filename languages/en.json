@@ -3,5 +3,6 @@
     "online_mode": "Online detection",
     "offline_mode": "Offline detection",
     "online_description": "This mode will use an online external service to translate your audio into text. You will need to be connected to the internet and an OpenAI API Key to use this mode.",
-    "offline_description": "This mode will use your computer's power to translate your audio into text. You will need to be connected to the internet to download the AI model. This has the advantage of not needing an API Key, but it will take longer to process your audio."
+    "offline_description": "This mode will use your computer's power to translate your audio into text. You will need to be connected to the internet to download the AI model. This has the advantage of not needing an API Key, but it will take longer to process your audio.",
+    "button_back": "Back"
 }

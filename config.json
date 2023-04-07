@@ -1,4 +1,6 @@
 {
     "language": "fr",
-    "theme": "dark"
+    "appearance_mode": "dark",
+    "theme": "green",
+    "openapi_api_key": ""
 }

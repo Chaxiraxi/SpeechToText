@@ -4,7 +4,8 @@ from tkinter.filedialog import askdirectory as ask_dir
 from config import *
 CONFIG: dict = load_config()
 STRINGS: dict = load_language(CONFIG["language"])
-ctk.set_appearance_mode(CONFIG["theme"])
+ctk.set_appearance_mode(CONFIG["appearance_mode"])
+ctk.set_default_color_theme(CONFIG["theme"])
 TITLE_FONT = ("Arial", 20, "bold")  # TODO: Load fonts from file
 
 class ModeSelectorGUI(ctk.CTk):
@@ -40,17 +41,30 @@ class OnlineGUI(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title(STRINGS["online_mode"])
+        self.grid_columnconfigure(0, weight=0)
         self.createWidgets()
 
     def createWidgets(self):
         """Create the widgets for the OnlineGUI."""
-        self.titleLable = ctk.CTkLabel(self, text=STRINGS["title_online"], font=TITLE_FONT)
+        self.sidebar_frame = ctk.CTkFrame(self, width=140, corner_radius=0)
+        self.sidebar_frame.grid(row=0, column=0, rowspan=4, sticky="nsew")
+        self.sidebar_frame.grid_rowconfigure(4, weight=1)
+        self.logo_label = ctk.CTkLabel(self.sidebar_frame, text="Speech To Text", font=ctk.CTkFont(size=20, weight="bold"))
+        self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
+
+        self.titleLable = ctk.CTkLabel(self, text=STRINGS["online_mode"], font=TITLE_FONT)
         self.backButton = ctk.CTkButton(self, text=STRINGS["button_back"], corner_radius=10, command=self.back)
         self.titleLable.grid(row=0, column=0, columnspan=2)
         self.backButton.grid(row=1, column=0, padx=10, pady=10)
 
+        self.progressBar = ctk.CTkProgressBar(self)
+        self.progressBar.grid(row=1, column=1, padx=10, pady=10)
+        self.progressBar.configure(mode="indeterminate")
+        self.progressBar.start()
+
     def back(self):
-        pass
+        self.destroy()
+        ModeSelectorGUI().mainloop()
 
 if __name__ == "__main__":
     gui = ModeSelectorGUI()
