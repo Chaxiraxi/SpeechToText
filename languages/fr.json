@@ -1,0 +1,8 @@
+{
+    "title": "Transcription de la parole en texte",
+    "api_key_entry_placeholder": "Entrez votre clé API OpenAI",
+    "file_path_entry_placeholder": "Entrez le chemin vers votre fichier audio",
+    "choose_file_button": "Sélectionner un fichier",
+    "transcribe_button": "Transcrire",
+    "save_to_file_button": "Enregistrer dans un fichier"
+}

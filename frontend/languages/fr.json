@@ -1,8 +1,0 @@
-{
-    "title_mode_selector": "Sélectionnez un mode",
-    "online_mode": "Détection en ligne",
-    "offline_mode": "Détection hors ligne",
-    "online_description": "Ce mode utilisera un service externe en ligne pour traduire votre audio en texte. Vous devrez être connecté à Internet et avoir une clé API OpenAI pour utiliser ce mode.",
-    "offline_description": "Ce mode utilisera la puissance de votre ordinateur pour traduire votre audio en texte. Vous devrez être connecté à Internet pour télécharger le modèle AI. Cela présente l'avantage de ne pas nécessiter de clé API, mais cela prendra plus de temps pour traiter votre audio.",
-    "button_back": "Retour"
-}

@@ -46,6 +46,4 @@ dist/**
 *.xlf
 package.nls.*.json
 l10n/
-backend/online/output.txt
-backend/online/test_AI.wav
-backend/online/API_KEY.py
+API_KEY.py

@@ -11,10 +11,13 @@
 
 ## Day 2 (14.04.2023)
 
-45 minutes
+101 minutes
 
 - Created the online backend for the project
 - Sorted out the file structure
 - Tested the backend
+- Abandoned the idea of having a local neural network, using a cloud-based one instead
+- Created the first buggy version of the user interface
+- TODO: Fix the user interface
 
 ---

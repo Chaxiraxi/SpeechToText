@@ -1,7 +1,6 @@
-from typing import List
 from tqdm import tqdm
 from API_KEY import API_KEY
-import openai, os, wave
+import openai, os, wave, subprocess
 openai.api_key = API_KEY
 
 def transcribe_file(file: str, prompt: str = None) -> str:
@@ -17,9 +16,30 @@ def transcribe_file(file: str, prompt: str = None) -> str:
     audio_file = open(file, "rb")
     return openai.Audio.transcribe("whisper-1", audio_file, prompt=prompt, response_format="text")
 
+def is_wave_format(file_path: str) -> bool:
+    """Detect if a file is a wave file.
+
+    Args:
+        file_path (str): File to check
+
+    Returns:
+        bool: True if the file is a wave file, False otherwise
+    """    
+    try:
+        with wave.open(file_path, 'rb') as file:
+            if file.getnchannels() == 0:
+                return False
+            else:
+                return True
+    except:
+        return False
+    
+def convert_to_wave(input_file_path, output_file_path):
+    subprocess.run(['ffmpeg', '-i', input_file_path, '-acodec', 'pcm_s16le', '-ar', '44100', output_file_path])
+
 # Split file into 24 MB chunks
 def split_audio_file(input_file_path: str, output_directory: str) -> None:
-    """Split an audio file into 24 MB files.
+    """Split an audio file into 24 MB files, and convert it to wave if necessary. This is required because the OpenAI API has a 25 MB limit per file.
 
     Args:
         input_file_path (str): File to split
@@ -27,6 +47,15 @@ def split_audio_file(input_file_path: str, output_directory: str) -> None:
     """    
     # Set the maximum size of each output file to 24 MB
     max_size_bytes: int = 24 * 1024 * 1024
+
+    # Check if the input file is a wave file
+    if not is_wave_format(input_file_path):
+        # Convert the input file to a wave file
+        print(f"Converting {input_file_path} to wave...")
+        cache_folder = create_cache_folder()
+        converted_file = cache_folder + "/converted.wav"
+        convert_to_wave(input_file_path, converted_file)
+        input_file_path = converted_file
 
     # Open the input audio file
     with wave.open(input_file_path, 'rb') as input_file:
@@ -50,13 +79,14 @@ def split_audio_file(input_file_path: str, output_directory: str) -> None:
         num_output_files: int = (num_frames + max_frames_per_file - 1) // max_frames_per_file
 
         # Split the input file into smaller files
-        for i in range(num_output_files):
+        print(f"Splitting {input_file_path} into {num_output_files} files...")
+        for i in tqdm(range(num_output_files)):
             # Calculate the start and end frames for the current output file
             start_frame: int = i * max_frames_per_file
             end_frame: int = min((i + 1) * max_frames_per_file, num_frames)
 
             # Calculate the output file path
-            output_file_path: str = os.path.join(output_directory, f"{os.path.splitext(os.path.basename(input_file_path))[0]}_{i+1}.wav")
+            output_file_path: str = os.path.join(output_directory, f"{os.path.splitext(os.path.basename(input_file_path))[0]}_{i+1:03}.wav")
 
             # Open the output file
             with wave.open(output_file_path, 'wb') as output_file:
@@ -70,15 +100,29 @@ def split_audio_file(input_file_path: str, output_directory: str) -> None:
                 output_file.writeframes(
                     input_file.readframes(end_frame - start_frame))
 
+    if os.path.exists(converted_file):
+        os.remove(converted_file)
+
+def create_cache_folder() -> str:
+    """Create a folder to store the split audio files.
+
+    Returns:
+        str: Path to the cache folder
+    """    
+    # Create a cache folder next to the script if it does not exist
+    cache_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'audio_cache')
+    if not os.path.exists(cache_folder):
+        os.mkdir(cache_folder)
+
+    return cache_folder
 
 def transcribe(file):
     if os.path.getsize(file) > 24 * 1024 * 1024:
-        # Create a cache folder next to the script if it does not exist
-        cache_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'audio_cache')
-        if not os.path.exists(cache_folder): os.mkdir(cache_folder)
+        cache_folder = create_cache_folder()
 
         split_audio_file(file, cache_folder)
         output = []
+        print("Transcribing...")
         for file in tqdm(os.listdir(cache_folder)):
             output.append(transcribe_file(os.path.join(cache_folder, file), output[-1] if len(output) > 0 else None))
 
