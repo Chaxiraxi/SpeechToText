@@ -48,14 +48,6 @@ class App(ctk.CTk):
         self.radio_button_2.grid(row=2, column=0, pady=10, padx=20, sticky="n")
         # self.radio_button_3 = ctk.CTkRadioButton(master=self.sidebar_frame, variable=self.radio_var, value=2)
         # self.radio_button_3.grid(row=3, column=2, pady=10, padx=20, sticky="n")
-
-
-        self.theme_label = ctk.CTkLabel(
-            self.sidebar_frame, text="Theme:", anchor="w")
-        self.theme_label.grid(row=3, column=0, padx=20, pady=(10, 0))
-        self.theme_optionemenu = ctk.CTkOptionMenu(self.sidebar_frame, values=["Blue", "Green", "Dark Blue"],
-                                                                          command=self.change_theme_event)
-        self.theme_optionemenu.grid(row=4, column=0, padx=20, pady=(10, 10))
         
         self.appearance_mode_label = ctk.CTkLabel(
             self.sidebar_frame, text="Appearance Mode:", anchor="w")
@@ -215,16 +207,6 @@ class App(ctk.CTk):
         dialog = ctk.CTkInputDialog(
             text="Type in a number:", title="CTkInputDialog")
         print("CTkInputDialog:", dialog.get_input())
-
-    def change_theme_event(self, new_theme: str):
-        if new_theme == "Blue":
-            new_theme = "blue"
-        elif new_theme == "Green":
-            new_theme = "green"
-        elif new_theme == "Dark Blue":
-            new_theme = "dark-blue"
-        ctk.set_default_color_theme(new_theme)
-        selfd
 
     def change_appearance_mode_event(self, new_appearance_mode: str):
         ctk.set_appearance_mode(new_appearance_mode)
