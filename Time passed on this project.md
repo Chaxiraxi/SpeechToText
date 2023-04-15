@@ -21,3 +21,11 @@
 - TODO: Fix the user interface
 
 ---
+
+## Day 3 (12.04.2023)
+
+49 minutes
+
+- Fixed the user interface
+
+---

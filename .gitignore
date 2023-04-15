@@ -47,3 +47,4 @@ dist/**
 package.nls.*.json
 l10n/
 API_KEY.py
+output.txt
