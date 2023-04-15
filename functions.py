@@ -128,21 +128,25 @@ def transcribe(file: str, api_key: str) -> str:
     """    
     if os.path.getsize(file) > 24 * 1024 * 1024:
         cache_folder = create_cache_folder()
-
+        empty_cache_folder(cache_folder)
+        
         split_audio_file(file, cache_folder)
         output: List[str] = []
         print("Transcribing...")
         for file in tqdm(os.listdir(cache_folder)):
             output.append(transcribe_file(os.path.join(cache_folder, file), api_key, output[-1] if len(output) > 0 else None))
 
-        # Delete the cache folder contents
-        for file in os.listdir(cache_folder):
-            os.remove(os.path.join(cache_folder, file))
+        empty_cache_folder(cache_folder)
 
         return " ".join(output)
     else:
         return transcribe_file(file, api_key)
     
+def empty_cache_folder(folder):
+    # Delete the cache folder contents
+    for file in os.listdir(folder):
+        os.remove(os.path.join(folder, file))
+
 # if __name__ == "__main__":
 #     # Transcribe argument file with argument API key
 #     from sys import argv
