@@ -24,7 +24,7 @@
 
 ## Day 3 (12.04.2023)
 
-144 minutes
+191 minutes
 
 - Fixed the user interface
 - Added a requirements.txt file
@@ -33,5 +33,7 @@
 - Added a time elapsed counter
 - Added a settings button
 - Created the settings window
+- TODO : Possible upgrades : Make progress bar dynamic based on the number of files to proceed.
+- Built the executable Linux app
 
 ---
