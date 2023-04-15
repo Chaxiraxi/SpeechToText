@@ -35,5 +35,6 @@
 - Created the settings window
 - TODO : Possible upgrades : Make progress bar dynamic based on the number of files to proceed.
 - Built the executable Linux app
+- Built the app bundle for macOS
 
 ---

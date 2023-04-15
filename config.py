@@ -44,11 +44,3 @@ def save_config(config: dict) -> None:
     """
     with open("config.json", "w") as f:
         json.dump(config, f, indent=4)
-
-def create_default_config() -> None:
-    """Create default config file."""
-    config = {
-        "language": "en",
-        "theme": "system"
-    }
-    save_config(config)

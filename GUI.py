@@ -81,13 +81,13 @@ class App(ctk.CTk):
         self.file_path_entry.delete(0, END)
         self.file_path_entry.insert(0, askopenfilename(title=STRINGS["choose_file_dialog_title"],
                                            filetypes=(
-                                                ("MP3 files", " .mp3 .MP3"),
-                                                ("MP4 files", " .mp4 .MP4"),
-                                                ("MPEG files", " .mpeg .MPEG"),
-                                                ("MPGA files", " .mpga .MPGA"),
-                                                ("M4A files", " .m4a .M4A"),
-                                                ("WAV files", " .wav .WAV"),
-                                                ("WEBM files", " .webm .WEBM"),
+                                                ("MP3", " .mp3 .MP3"),
+                                                ("MP4", " .mp4 .MP4"),
+                                                ("MPEG", " .mpeg .MPEG"),
+                                                ("MPGA", " .mpga .MPGA"),
+                                                ("M4A", " .m4a .M4A"),
+                                                ("WAV", " .wav .WAV"),
+                                                ("WEBM", " .webm .WEBM"),
                                                 (STRINGS["choose_all_files_types_dialog"], "*.*"),
                                            )))
         self.check_file_path()
