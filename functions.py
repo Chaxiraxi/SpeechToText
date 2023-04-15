@@ -1,9 +1,8 @@
 from tqdm import tqdm
-from API_KEY import API_KEY
+from typing import List
 import openai, os, wave, subprocess
-openai.api_key = API_KEY
 
-def transcribe_file(file: str, prompt: str = None) -> str:
+def transcribe_file(file: str, api_key: str, prompt: str = None) -> str:
     """Transcribe an audio file.
 
     Args:
@@ -13,6 +12,7 @@ def transcribe_file(file: str, prompt: str = None) -> str:
     Returns:
         str: Transcribed text
     """    
+    openai.api_key = api_key
     audio_file = open(file, "rb")
     return openai.Audio.transcribe("whisper-1", audio_file, prompt=prompt, response_format="text")
 
@@ -116,15 +116,24 @@ def create_cache_folder() -> str:
 
     return cache_folder
 
-def transcribe(file):
+def transcribe(file: str, api_key: str) -> str:
+    """Transcribe an audio file.
+
+    Args:
+        file (str): File to transcribe
+        api_key (str): OpenAI API key
+
+    Returns:
+        str: Transcribed text
+    """    
     if os.path.getsize(file) > 24 * 1024 * 1024:
         cache_folder = create_cache_folder()
 
         split_audio_file(file, cache_folder)
-        output = []
+        output: List[str] = []
         print("Transcribing...")
         for file in tqdm(os.listdir(cache_folder)):
-            output.append(transcribe_file(os.path.join(cache_folder, file), output[-1] if len(output) > 0 else None))
+            output.append(transcribe_file(os.path.join(cache_folder, file), api_key, output[-1] if len(output) > 0 else None))
 
         # Delete the cache folder contents
         for file in os.listdir(cache_folder):
@@ -132,13 +141,13 @@ def transcribe(file):
 
         return " ".join(output)
     else:
-        return transcribe_file(file)
+        return transcribe_file(file, api_key)
     
-if __name__ == "__main__":
-    # Transcribe argument file
-    import sys
-    trascription = transcribe(sys.argv[1])
+# if __name__ == "__main__":
+#     # Transcribe argument file with argument API key
+#     from sys import argv
+#     trascription = transcribe(argv[1], argv[2])
 
-    # Write transcribed text to a file
-    with open("output.txt", "w") as f:
-        f.write(trascription)
+#     # Write transcribed text to a file
+#     with open("output.txt", "w") as f:
+#         f.write(trascription)

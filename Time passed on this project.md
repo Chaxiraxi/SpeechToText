@@ -24,8 +24,14 @@
 
 ## Day 3 (12.04.2023)
 
-49 minutes
+144 minutes
 
 - Fixed the user interface
+- Added a requirements.txt file
+- Added valid file verification
+- Added a API Key format validation
+- Added a time elapsed counter
+- Added a settings button
+- Created the settings window
 
 ---

@@ -4,5 +4,20 @@
     "file_path_entry_placeholder": "Enter the path to your audio file",
     "choose_file_button": "Select a file",
     "transcribe_button": "Transcribe",
-    "save_to_file_button": "Save to file"
+    "save_to_file_button": "Save to file",
+    "choose_file_dialog_title": "Select a file",
+    "choose_all_files_types_dialog": "All files",
+    "config_window_title": "Settings",
+    "appearance_mode_label": "Appearance mode",
+    "appearance_mode_light": "Light",
+    "appearance_mode_dark": "Dark",
+    "appearance_mode_system": "System",
+    "language_label": "Language *",
+    "language_english": "English",
+    "language_french": "French",
+    "color_scheme_label": "Color scheme *",
+    "color_scheme_blue": "Blue",
+    "color_scheme_green": "Green",
+    "color_scheme_darkblue": "Dark blue",
+    "reboot_required_label": "(*): Reboot required"
 }
