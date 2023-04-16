@@ -24,7 +24,7 @@
 
 ## Day 3 (15.04.2023)
 
-348 minutes
+348 minutes (where 157 minutes were spent on debugging)
 
 - Fixed the user interface
 - Added a requirements.txt file
@@ -43,7 +43,7 @@
 
 ## Day 4 (16.04.2023)
 
-57 minutes
+57 minutes (of debugging basically)
 
 - Fixed MacOS specific bugs
 - Compiled final version of the app for MacOS
