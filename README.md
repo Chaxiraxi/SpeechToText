@@ -76,7 +76,7 @@ Here's what you need to replace :
 
 #### Windows
 
-`C:\Users\Chaxiraxi\AppData\Local\Programs\Python\Python39\Lib\site-packages\customtkinter`
+`c:\\users\\chaxiraxi\\appdata\\local\\packages\\pythonsoftwarefoundation.python.3.10_qbz5n2kfra8p0\\localcache\\local-packages\\python310\\site-packages\\customtkinter`
 
 #### Linux
 
