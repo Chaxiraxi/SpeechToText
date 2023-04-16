@@ -1,5 +1,5 @@
 import customtkinter as ctk
-import os
+import os#, multiprocessing
 from threading import Thread
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 from tkinter import END, StringVar
@@ -7,11 +7,12 @@ from functions import transcribe as transcribe_file
 from time import time, sleep
 from PIL import Image
 from config import *
+
 CONFIG: dict = load_config()
 STRINGS: dict = load_language(CONFIG["language"])
 ctk.set_appearance_mode(CONFIG["appearance_mode"])
 ctk.set_default_color_theme(CONFIG["theme"])
-TITLE_FONT = ("Arial", 20, "bold")  # TODO: Load fonts from file
+TITLE_FONT = ("Arial", 20, "bold")
 
 class App(ctk.CTk):
     def __init__(self):
@@ -152,7 +153,10 @@ class App(ctk.CTk):
             return
         CONFIG["api_key"] = self.api_key_entry.get()
         save_config(CONFIG)
-        self.transcribe_button.configure(state="normal")
+
+        # Additionnal file path check before enabling the transcribe button
+        if self.check_file_path():
+            self.transcribe_button.configure(state="normal")
 
 class ConfigWindow(ctk.CTkToplevel):
     def __init__(self):
@@ -252,5 +256,6 @@ class ConfigWindow(ctk.CTkToplevel):
 
 
 if __name__ == "__main__":
+    # multiprocessing.freeze_support()
     app = App()
     app.mainloop()

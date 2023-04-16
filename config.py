@@ -1,4 +1,4 @@
-import json
+import json, os, sys
 
 def load_language(lang: str = "en") -> dict:
     """Load language file from disk.
@@ -13,7 +13,7 @@ def load_language(lang: str = "en") -> dict:
         dict: Dictionary containing language strings.
     """    
     try:
-        with open(f"languages/{lang}.json", "r") as f:
+        with open(os.path.join(sys._MEIPASS, f"languages/{lang}.json"), "r") as f:
             return json.load(f)
     except FileNotFoundError:
         if lang != "en":
@@ -31,7 +31,7 @@ def load_config() -> dict:
         dict: Dictionary containing config values.
     """    
     try:
-        with open("config.json", "r") as f:
+        with open(os.path.join(sys._MEIPASS, "config.json"), "r") as f:
             return json.load(f)
     except FileNotFoundError:
         raise FileNotFoundError("Config file not found.")
@@ -42,5 +42,5 @@ def save_config(config: dict) -> None:
     Args:
         config (dict): Dictionary containing config values.
     """
-    with open("config.json", "w") as f:
+    with open(os.path.join(sys._MEIPASS, "config.json"), "w") as f:
         json.dump(config, f, indent=4)

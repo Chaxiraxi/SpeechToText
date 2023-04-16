@@ -1,6 +1,5 @@
-from tqdm import tqdm
 from typing import List
-import openai, os, wave, subprocess
+import openai, os, wave, subprocess, sys
 
 def transcribe_file(file: str, api_key: str, prompt: str = None) -> str:
     """Transcribe an audio file.
@@ -34,9 +33,6 @@ def is_wave_format(file_path: str) -> bool:
     except:
         return False
     
-def convert_to_wave(input_file_path, output_file_path):
-    subprocess.run(['ffmpeg', '-i', input_file_path, '-acodec', 'pcm_s16le', '-ar', '44100', output_file_path])
-
 # Split file into 24 MB chunks
 def split_audio_file(input_file_path: str, output_directory: str) -> None:
     """Split an audio file into 24 MB files, and convert it to wave if necessary. This is required because the OpenAI API has a 25 MB limit per file.
@@ -54,7 +50,8 @@ def split_audio_file(input_file_path: str, output_directory: str) -> None:
         print(f"Converting {input_file_path} to wave...")
         cache_folder = create_cache_folder()
         converted_file = cache_folder + "/converted.wav"
-        convert_to_wave(input_file_path, converted_file)
+        subprocess.run([os.path.join(sys._MEIPASS, './ffmpeg'), '-i', input_file_path,
+                       '-acodec', 'pcm_s16le', '-ar', '44100', converted_file])
         input_file_path = converted_file
 
     # Open the input audio file
@@ -80,7 +77,7 @@ def split_audio_file(input_file_path: str, output_directory: str) -> None:
 
         # Split the input file into smaller files
         print(f"Splitting {input_file_path} into {num_output_files} files...")
-        for i in tqdm(range(num_output_files)):
+        for i in range(num_output_files):
             # Calculate the start and end frames for the current output file
             start_frame: int = i * max_frames_per_file
             end_frame: int = min((i + 1) * max_frames_per_file, num_frames)
@@ -128,13 +125,19 @@ def transcribe(file: str, api_key: str) -> str:
     """    
     if os.path.getsize(file) > 24 * 1024 * 1024:
         cache_folder = create_cache_folder()
+
         empty_cache_folder(cache_folder)
-        
+
         split_audio_file(file, cache_folder)
         output: List[str] = []
         print("Transcribing...")
-        for file in tqdm(os.listdir(cache_folder)):
-            output.append(transcribe_file(os.path.join(cache_folder, file), api_key, output[-1] if len(output) > 0 else None))
+        files = os.listdir(cache_folder)
+        files.sort()
+        for file in files:
+            file_to_transcribe = os.path.join(cache_folder, file)
+            prompt = output[-1] if len(output) > 0 else None
+            transcription = transcribe_file(file_to_transcribe, api_key, prompt)
+            output.append(transcription)
 
         empty_cache_folder(cache_folder)
 

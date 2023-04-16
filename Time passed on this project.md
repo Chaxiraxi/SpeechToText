@@ -22,9 +22,9 @@
 
 ---
 
-## Day 3 (12.04.2023)
+## Day 3 (15.04.2023)
 
-191 minutes
+348 minutes
 
 - Fixed the user interface
 - Added a requirements.txt file
@@ -36,5 +36,16 @@
 - TODO : Possible upgrades : Make progress bar dynamic based on the number of files to proceed.
 - Built the executable Linux app
 - Built the app bundle for macOS
+- Added save dialog translations
+- General MacOS specific bug fixes (1h34) + (21min) + (42min)
 
 ---
+
+## Day 4 (16.04.2023)
+
+57 minutes
+
+- Fixed MacOS specific bugs
+- Compiled final version of the app for MacOS
+- Compiled final version of the app for Linux
+- Delivered the app to the client
