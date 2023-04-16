@@ -1,5 +1,2 @@
 customtkinter
-tqdm
 openai
-wave
-subprocess

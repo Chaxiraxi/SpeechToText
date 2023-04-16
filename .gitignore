@@ -1,5 +1,5 @@
-build/
-dist/
+**build/
+**dist/
 __pycache__/
 .vscode/
 DAVEKEY.txt
