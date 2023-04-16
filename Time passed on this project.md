@@ -43,9 +43,10 @@
 
 ## Day 4 (16.04.2023)
 
-57 minutes (of debugging basically)
+57 minutes (of debugging basically) (+ a bunch of hours idk how many for setting up the README and the GitHub)
 
 - Fixed MacOS specific bugs
 - Compiled final version of the app for MacOS
 - Compiled final version of the app for Linux
+- Compiled final version of the app for Windows
 - Delivered the app to the client
