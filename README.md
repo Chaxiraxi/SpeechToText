@@ -1,6 +1,6 @@
 # SpeechToText
 
-Un version française de ce fichier est disponible [ici](README-FR.md).
+Une version française de ce fichier est disponible [ici](README-FR.md).
 
 ## Description
 
