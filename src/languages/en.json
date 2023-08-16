@@ -21,5 +21,5 @@
     "color_scheme_blue": "Blue",
     "color_scheme_green": "Green",
     "color_scheme_darkblue": "Dark blue",
-    "reboot_required_label": "(*): Reboot required"
+    "reboot_required_label": "(*): App restart required"
 }

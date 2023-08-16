@@ -1,5 +1,5 @@
 import customtkinter as ctk
-import os#, multiprocessing
+import os
 from threading import Thread
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 from tkinter import END, StringVar
@@ -138,10 +138,8 @@ class App(ctk.CTk):
         with open(file_path, "w") as f:
             f.write(self.transcribed_text)
 
-    def check_api_format(self, event = None):
-        if self.api_key_entry.get().startswith("sk-"):
-            return True
-        return False
+    def check_api_format(self):
+        return self.api_key_entry.get().startswith("sk-")
 
     def save_api_key(self, event):
         """Save the config to the config file."""
@@ -256,6 +254,5 @@ class ConfigWindow(ctk.CTkToplevel):
 
 
 if __name__ == "__main__":
-    # multiprocessing.freeze_support()
     app = App()
     app.mainloop()
